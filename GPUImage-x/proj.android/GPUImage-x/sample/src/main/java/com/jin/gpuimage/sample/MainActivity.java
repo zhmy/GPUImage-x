@@ -38,6 +38,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         findViewById(R.id.btn_image_sample).setOnClickListener(this);
         findViewById(R.id.btn_camera_sample).setOnClickListener(this);
+        findViewById(R.id.btn_vulkan_camera_sample).setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +56,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             if (PermissionChecker.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
                 startActivity(new Intent(this, ImageSampleActivity.class));
+            }
+        } else if (requestCode == R.id.btn_vulkan_camera_sample) {
+            if (PermissionChecker.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED &&
+                    PermissionChecker.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED) {
+                startActivity(new Intent(this, VulkanCameraSampleActivity.class));
             }
         }
     }
@@ -78,6 +86,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, v.getId());
                 } else {
                     startActivity(new Intent(this, CameraSampleActivity.class));
+                }
+                break;
+            case R.id.btn_vulkan_camera_sample:
+                if (PermissionChecker.checkSelfPermission(this, Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_DENIED ||
+                        PermissionChecker.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, v.getId());
+                } else {
+                    startActivity(new Intent(this, VulkanCameraSampleActivity.class));
                 }
                 break;
             default:

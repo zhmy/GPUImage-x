@@ -22,6 +22,12 @@
             android:layout_height="wrap_content"
             android:text="Camera Sample"/>
 
+        <Button
+            android:id="@+id/btn_vulkan_camera_sample"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vulkan Camera Sample"/>
+
     </LinearLayout>
 
 </RelativeLayout>

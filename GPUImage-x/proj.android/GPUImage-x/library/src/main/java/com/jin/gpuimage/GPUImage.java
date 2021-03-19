@@ -60,6 +60,7 @@ public class GPUImage {
             @Override
             public void run() {
                 nativeContextInit();
+                nativeVulkanInit();
             }
         });
     }
@@ -151,6 +152,7 @@ public class GPUImage {
 
     static {
         System.loadLibrary("GPUImage-x");
+        System.loadLibrary("GPUImage-x-vulkan");
     }
 
     // Filter
@@ -191,8 +193,8 @@ public class GPUImage {
     public static native void nativeContextInit();
     public static native void nativeContextDestroy();
     public static native void nativeContextPurge();
-
     // utils
     public static native void nativeYUVtoRBGA(byte[] yuv, int width, int height, int[] out);
 
+    public static native void nativeVulkanInit();
 }

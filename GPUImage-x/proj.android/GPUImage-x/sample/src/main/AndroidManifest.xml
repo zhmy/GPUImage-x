@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".ImageSampleActivity"/>
         <activity android:name=".CameraSampleActivity"/>
+        <activity android:name=".VulkanCameraSampleActivity"/>
     </application>
 
 </manifest>
