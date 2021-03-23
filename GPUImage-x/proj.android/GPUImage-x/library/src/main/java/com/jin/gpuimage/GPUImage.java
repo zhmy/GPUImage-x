@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.view.Surface;
 
 public class GPUImage {
     public static final int NoRotation = 0;
@@ -60,7 +61,6 @@ public class GPUImage {
             @Override
             public void run() {
                 nativeContextInit();
-                nativeVulkanInit();
             }
         });
     }
@@ -196,5 +196,5 @@ public class GPUImage {
     // utils
     public static native void nativeYUVtoRBGA(byte[] yuv, int width, int height, int[] out);
 
-    public static native void nativeVulkanInit();
+    public static native void nativeVulkanInit(Surface surface);
 }

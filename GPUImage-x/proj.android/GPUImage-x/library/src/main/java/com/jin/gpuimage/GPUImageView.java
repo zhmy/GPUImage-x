@@ -21,6 +21,7 @@ package com.jin.gpuimage;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.widget.FrameLayout;
 
@@ -125,6 +126,8 @@ public class GPUImageView extends FrameLayout implements GPUImageTarget {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             super.surfaceCreated(holder);
+            Surface surface = holder.getSurface();
+            GPUImage.nativeVulkanInit(surface);
         }
 
         @Override

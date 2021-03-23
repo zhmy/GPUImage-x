@@ -32,7 +32,7 @@ import java.nio.IntBuffer;
 
 public class GPUImageSourceCamera extends GPUImageSource implements Camera.PreviewCallback {
     private Camera mCamera;
-    private int mCurrentCameraId = 0;
+    private int mCurrentCameraId = 1;
     private IntBuffer mRGBABuffer;
     private int mRotation = GPUImage.NoRotation;
     private Context mContext;

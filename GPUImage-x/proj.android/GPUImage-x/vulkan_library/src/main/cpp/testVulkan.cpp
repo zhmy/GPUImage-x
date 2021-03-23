@@ -1,15 +1,13 @@
 //
 // Created by Zhang,Mingyue(IBPD) on 2021/3/16.
 //
-#include "vulkan_wrapper/vulkan_wrapper.h"
-#include <android/log.h>
 #include <stdexcept>
 #include <vector>
 #include "testVulkan.h"
 
 # define NULL __null
 
-int innerInitVulkan() {
+int innerInitVulkan(ANativeWindow *window) {
 
     // 1. check global properties
     if(!InitVulkan()) {
@@ -75,9 +73,22 @@ int innerInitVulkan() {
     VkCommandBuffer cmd; // Buffer for initialization commands
     res = vkAllocateCommandBuffers(device, &cmd_info, &cmd);
 
+    // 6. init swap chain
+    VkSurfaceKHR* surface;
+    VkAndroidSurfaceCreateInfoKHR surfaceCreateInfo;
+    surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
+    surfaceCreateInfo.pNext = nullptr;
+    surfaceCreateInfo.flags = 0;
+    surfaceCreateInfo.window = window;
+    res = vkCreateAndroidSurfaceKHR(inst, &surfaceCreateInfo, nullptr, surface);
 
-//    vkDestroyDevice(device, NULL);
-//    vkDestroyInstance(inst, NULL);
+
+    VkCommandBuffer cmd_bufs[1] = {cmd};
+    vkFreeCommandBuffers(device, cmd_pool, 1, cmd_bufs);
+    vkDestroyCommandPool(device, cmd_pool, NULL);
+
+    vkDestroyDevice(device, NULL);
+    vkDestroyInstance(inst, NULL);
     __android_log_print(ANDROID_LOG_INFO, "zmy", "starting");
     return 0;
 }
